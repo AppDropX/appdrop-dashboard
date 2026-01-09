@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/enums/theme_settings.dart';
+import '../../utilites/enums/theme_settings.dart';
 
 class SideMenu extends StatelessWidget {
   final ThemeSection selectedSection;

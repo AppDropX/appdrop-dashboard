@@ -22,12 +22,12 @@ class DashboardLayout extends StatefulWidget {
   State<DashboardLayout> createState() => _DashboardLayoutState();
 }
 
-class _DashboardLayoutState extends State<DashboardLayout> {
+class _DashboardLayoutState extends State<DashboardLayout>{
   bool isCollapsed = true;
   String currentScreen = "Themes";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: const Color(0xffF7F8FA),
       /// TOP APP BAR
@@ -124,12 +124,4 @@ class _DashboardLayoutState extends State<DashboardLayout> {
     }
   }
 
-  /*Widget _getScreen() {
-    switch (currentScreen) {
-      case "Themes":
-        return const ThemeLibraryScreen();
-      default:
-        return const ThemeLibraryScreen();
-    }
-  }*/
 }

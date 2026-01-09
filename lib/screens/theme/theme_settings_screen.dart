@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/enums/theme_settings.dart';
+import '../../utilites/enums/theme_settings.dart';
 import '../../widgets/theme_settings_widgets/theme_mobile_preview.dart';
 import '../../widgets/theme_settings_widgets/theme_side_menu.dart';
 

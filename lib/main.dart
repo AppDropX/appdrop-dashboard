@@ -2,9 +2,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'login/login_page.dart';
+import 'core/router/app_router.dart';
 
-void main() async{
+
+/// Is this main Class: ignition point of App Builder
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -16,7 +21,6 @@ void main() async{
     ),
   );
 
-
   runApp(const AppDropApp());
 }
 
@@ -25,17 +29,18 @@ class AppDropApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'AppDrop',
       theme: ThemeData(
+        fontFamily: 'Inter',
         scaffoldBackgroundColor: const Color(0xffF7F8FA),
         useMaterial3: false,
-        fontFamily: 'Inter',
       ),
-      home:LoginPage(),
+      routerConfig: router,
     );
   }
 }
+
 
 

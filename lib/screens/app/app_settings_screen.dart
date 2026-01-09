@@ -1,6 +1,7 @@
-import 'package:builder/core/enums/app_settings.dart';
 import 'package:builder/widgets/app_settings_widgets/app_side_menu.dart';
 import 'package:flutter/material.dart';
+
+import '../../utilites/enums/app_settings.dart';
 
 
 class AppSettingsScreen extends StatefulWidget {
@@ -36,13 +37,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             ),
           ),
 
-          /// Right Preview
-          /*Expanded(
-            flex: 15,
-            child: Container(
-                color: Colors.black12,
-                child: MobilePreview(section: selectedSection)),
-          ),*/
+
         ],
       ),
     );

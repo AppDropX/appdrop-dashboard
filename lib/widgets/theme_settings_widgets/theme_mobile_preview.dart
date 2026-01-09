@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/enums/theme_settings.dart';
+import '../../utilites/enums/theme_settings.dart';
+
 
 class MobilePreview extends StatelessWidget {
   final ThemeSection section;
