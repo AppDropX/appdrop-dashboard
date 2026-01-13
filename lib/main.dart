@@ -37,7 +37,7 @@ class AppDropApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xffF7F8FA),
         useMaterial3: false,
       ),
-      routerConfig: router,
+      routerConfig: appRouter,
     );
   }
 }

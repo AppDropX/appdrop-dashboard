@@ -36,8 +36,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               child: Center(child: _buildSettings()),
             ),
           ),
-
-
         ],
       ),
     );

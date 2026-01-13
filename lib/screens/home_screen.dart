@@ -1,6 +1,7 @@
 import 'package:builder/screens/theme/theme_library_screen.dart';
 import 'package:builder/screens/theme/theme_settings_screen.dart';
 import 'package:flutter/material.dart';
+import '../auth/controller/login_controller.dart';
 import '../widgets/custom_sidebar.dart';
 import 'theme/active_theme_screen.dart';
 import 'app/app_settings_screen.dart';
@@ -89,14 +90,20 @@ class _DashboardLayoutState extends State<DashboardLayout>{
       body: Row(
         children: [
           /// SIDEBAR
+
           Sidebar(
             collapsed: isCollapsed,
             selected: currentScreen,
-            onSelect: (screen) {
-              print(screen);
-              setState(() => currentScreen = screen);
+            onSelect: (value) {
+              setState(() => currentScreen = value);
+            },
+            onLogout: (){
+              // 🔥 actual logout logic here
+              LoginController().logout(context);
             },
           ),
+
+
 
           /// MAIN CONTENT
           Expanded(

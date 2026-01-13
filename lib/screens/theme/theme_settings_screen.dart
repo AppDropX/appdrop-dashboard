@@ -1,3 +1,4 @@
+import 'package:builder/widgets/theme_settings_widgets/theme_settings_center_card/app_styling.dart';
 import 'package:flutter/material.dart';
 
 import '../../utilites/enums/theme_settings.dart';
@@ -31,10 +32,7 @@ class _ThemeSettingsScreenState extends State<ThemeSettingsScreen> {
           /// Center Settings
           Expanded(
             flex: 30,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Center(child: _buildSettings()),
-            ),
+            child: Center(child: _buildSettings()),
           ),
 
           /// Right Preview
@@ -52,7 +50,7 @@ class _ThemeSettingsScreenState extends State<ThemeSettingsScreen> {
   Widget _buildSettings() {
     switch (selectedSection) {
       case ThemeSection.appStyling:
-        return const Text("App Styling Settings",style: TextStyle(fontSize: 25),);
+        return const AppStylingScreen();
       case ThemeSection.productBlock:
         return const Text("Product Block Settings",style: TextStyle(fontSize: 25),);
       case ThemeSection.topNavigation:

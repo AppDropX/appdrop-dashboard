@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Sidebar extends StatelessWidget {
   final bool collapsed;
   final String selected;
+  final VoidCallback onLogout;
   final Function(String) onSelect;
 
   const Sidebar({
@@ -10,6 +11,7 @@ class Sidebar extends StatelessWidget {
     required this.collapsed,
     required this.selected,
     required this.onSelect,
+    required this.onLogout
   });
 
   @override
@@ -139,7 +141,17 @@ class Sidebar extends StatelessWidget {
           ),
 
           const Divider(),
-          _simpleItem(Icons.logout, "Logout"),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: collapsed ? null : const Text("Logout"),
+            onTap: () {
+              showLogoutDialog(
+                context,
+                onLogout, // 🔥 function call
+              );
+            },
+          ),
+
           const SizedBox(height: 12),
         ],
       ),
@@ -152,44 +164,50 @@ class Sidebar extends StatelessWidget {
     required String title,
     required List<Widget> children,
   }) {
-    return ExpansionTile(
-
-      expandedCrossAxisAlignment:CrossAxisAlignment.start,
-      tilePadding: EdgeInsets.symmetric(
-        horizontal: collapsed ? 16 : 16,
-        vertical: 0, // 🔥 height control
-      ),
-
-      childrenPadding: const EdgeInsets.only(
-        left: 0, // 🔥 indent control
-        right: 12,
-        bottom: 6,
-      ),
-
-      visualDensity: const VisualDensity(
-        vertical: -3, // 🔥 makes tile compact
-      ),
-
-      leading: Icon(
-        icon,
-        size: 20,
-        color: collapsed ? Colors.grey : Colors.black54,
-      ),
-
-      title: collapsed
-          ? const SizedBox.shrink()
-          : Text(
-        title,
-        style: const TextStyle(
-          fontSize: 14,
-          color: Colors.black54,
-          fontWeight: FontWeight.w500,
+    return ListTileTheme(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8,vertical: 0),
+      horizontalTitleGap: 6, // space between leading and title
+      minLeadingWidth: 24,
+      minVerticalPadding: 0,
+      child: ExpansionTile(
+        expandedCrossAxisAlignment:CrossAxisAlignment.start,
+        tilePadding: EdgeInsets.symmetric(
+          horizontal: collapsed ? 16 : 16,
+          vertical: 0, // 🔥 height control
         ),
+
+        childrenPadding: const EdgeInsets.only(
+          left: 0, // 🔥 indent control
+          right: 0,
+          bottom: 6,
+        ),
+
+        visualDensity: const VisualDensity(
+          vertical: -3, // 🔥 makes tile compact
+        ),
+
+        leading: Icon(
+          icon,
+          size: 20,
+          color: collapsed ? Colors.grey : Colors.black54,
+        ),
+
+
+        title: collapsed
+            ? const SizedBox.shrink()
+            : Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.black54,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        trailing: collapsed
+            ? const SizedBox.shrink()
+            : const Icon(Icons.expand_more, size: 18,color: Colors.black54,),
+        children: collapsed ? [] : children,
       ),
-      trailing: collapsed
-          ? const SizedBox.shrink()
-          : const Icon(Icons.expand_more, size: 18,color: Colors.black54,),
-      children: collapsed ? [] : children,
     );
   }
 
@@ -199,7 +217,7 @@ class Sidebar extends StatelessWidget {
     return InkWell(
       onTap: () => onSelect(title),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 0),
+        margin: const EdgeInsets.symmetric(vertical: 0,horizontal: 0),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
         decoration: BoxDecoration(
           color: isSelected
@@ -226,4 +244,49 @@ class Sidebar extends StatelessWidget {
       onTap: () => onSelect(title),
     );
   }
+
+  Future<void> showLogoutDialog(
+      BuildContext context,
+      VoidCallback onLogout,
+      ) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 0),
+          titlePadding: EdgeInsets.symmetric(horizontal: 15,vertical: 11),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          title: const Text(
+            "Logout",
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          content: const Text(
+            "Are you sure you want to logout?",
+            style: TextStyle(fontSize: 14),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel",style: TextStyle(color: Colors.black87),),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+              onPressed: () {
+                Navigator.pop(context); // close dialog
+                onLogout(); // 🔥 actual logout call
+              },
+              child: const Text("Logout"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
