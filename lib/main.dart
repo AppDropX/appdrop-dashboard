@@ -1,27 +1,36 @@
-
+import 'package:builder/bloc/builder_bloc/theme_settings_bloc/theme_settings_event.dart';
+import 'package:builder/utilites/repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/builder_bloc/theme_settings_bloc/theme_settings_bloc.dart';
+import 'config/app_config.dart';
 import 'core/router/app_router.dart';
-
 
 /// Is this main Class: ignition point of App Builder
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyBsVLcVDjuUY3s2269cIfdje9ZI11laj3A",
-      authDomain: "appdrop-ee3c4.firebaseapp.com",
-      projectId: "appdrop-ee3c4",
-      appId: "1:179539359710:web:97604f7f53bb27611e0f4f",
-      messagingSenderId: "179539359710",
+      apiKey: AppConfig.firebaseApiKey,
+      authDomain: AppConfig.firebaseAuthDomain,
+      projectId: AppConfig.firebaseProjectID,
+      appId: AppConfig.firebaseAppID,
+      messagingSenderId: AppConfig.firebaseMessagingSenderID,
     ),
   );
 
-  runApp(const AppDropApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeSettingsBloc(BuilderRepository())..add(GetThemeSettingEvent()),),
+        //BlocProvider(create: (context) => themeSettingsPreviewBloc),
+      ],
+      child: const AppDropApp(),
+    ),
+  );
 }
 
 class AppDropApp extends StatelessWidget {
@@ -41,6 +50,3 @@ class AppDropApp extends StatelessWidget {
     );
   }
 }
-
-
-

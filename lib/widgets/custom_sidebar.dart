@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../core/constants/app_colors.dart';
+
 class Sidebar extends StatelessWidget {
   final bool collapsed;
   final String selected;
@@ -89,6 +91,7 @@ class Sidebar extends StatelessWidget {
               children: [
                 if(collapsed)
                   _expansionTile(
+                  context: context,
                   icon: Icons.layers_rounded,
                   title: "",
                   children: [
@@ -96,6 +99,7 @@ class Sidebar extends StatelessWidget {
                 ),
                 /// ================= THEME =================
                 _expansionTile(
+                  context: context,
                   icon: Icons.palette_outlined,
                   title: "Theme",
                   children: [
@@ -107,6 +111,7 @@ class Sidebar extends StatelessWidget {
 
                 /// ================= APP =================
                 _expansionTile(
+                  context: context,
                   icon: Icons.phone_android,
                   title: "App",
                   children: [
@@ -118,6 +123,7 @@ class Sidebar extends StatelessWidget {
 
                 /// ================= EXTENSIONS =================
                 _expansionTile(
+                  context: context,
                   icon: Icons.extension,
                   title: "Extensions",
                   children: [
@@ -129,6 +135,7 @@ class Sidebar extends StatelessWidget {
 
                 /// ================= ACCOUNT =================
                 _expansionTile(
+                  context: context,
                   icon: Icons.person_outline,
                   title: "Account",
                   children: [
@@ -140,9 +147,12 @@ class Sidebar extends StatelessWidget {
             ),
           ),
 
-          const Divider(),
+          const Divider(thickness: 0.5,color: Colors.black12,),
           ListTile(
-            leading: const Icon(Icons.logout),
+            minVerticalPadding: 0,
+            minTileHeight: 30,
+            contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 15),
+            leading: const Icon(Icons.logout,size: 20,),
             title: collapsed ? null : const Text("Logout"),
             onTap: () {
               showLogoutDialog(
@@ -163,85 +173,87 @@ class Sidebar extends StatelessWidget {
     required IconData icon,
     required String title,
     required List<Widget> children,
+    required BuildContext context
   }) {
     return ListTileTheme(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 8,vertical: 0),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 0),
       horizontalTitleGap: 6, // space between leading and title
-      minLeadingWidth: 24,
+      minLeadingWidth: 25,
+
       minVerticalPadding: 0,
-      child: ExpansionTile(
-        expandedCrossAxisAlignment:CrossAxisAlignment.start,
-        tilePadding: EdgeInsets.symmetric(
-          horizontal: collapsed ? 16 : 16,
-          vertical: 0, // 🔥 height control
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent
         ),
+        child: ExpansionTile(
+          //minTileHeight: 35,
 
-        childrenPadding: const EdgeInsets.only(
-          left: 0, // 🔥 indent control
-          right: 0,
-          bottom: 6,
-        ),
-
-        visualDensity: const VisualDensity(
-          vertical: -3, // 🔥 makes tile compact
-        ),
-
-        leading: Icon(
-          icon,
-          size: 20,
-          color: collapsed ? Colors.grey : Colors.black54,
-        ),
-
-
-        title: collapsed
-            ? const SizedBox.shrink()
-            : Text(
-          title,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.black54,
-            fontWeight: FontWeight.w500,
+          initiallyExpanded: true,
+          expandedCrossAxisAlignment:CrossAxisAlignment.start,
+          tilePadding: EdgeInsets.symmetric(
+            horizontal: collapsed ? 16 : 16,
+            vertical: 0, // 🔥 height control
           ),
+        
+          childrenPadding: const EdgeInsets.only(
+            left: 11, // 🔥 indent control
+            right: 15,
+            bottom: 0,
+            top: 0
+          ),
+        
+          visualDensity: const VisualDensity(
+            vertical: -3, // 🔥 makes tile compact
+          ),
+        
+          leading: Icon(
+            icon,
+            size: 20,
+            color: collapsed ? Colors.grey : Color(0xffF76B0A),
+          ),
+          title: collapsed
+              ? const SizedBox.shrink()
+              : Text(
+            title,
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppColors.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          trailing: collapsed
+              ? const SizedBox.shrink()
+              : const Icon(Icons.expand_more, size: 15,color: Colors.black54,),
+          children: collapsed ? [] : children,
         ),
-        trailing: collapsed
-            ? const SizedBox.shrink()
-            : const Icon(Icons.expand_more, size: 18,color: Colors.black54,),
-        children: collapsed ? [] : children,
       ),
     );
   }
-
   /// ================= CHILD ITEM =================
   Widget _childItem(String title) {
     final isSelected = selected == title;
     return InkWell(
       onTap: () => onSelect(title),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 0,horizontal: 0),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
         decoration: BoxDecoration(
           color: isSelected
-              ? Colors.orange.shade50
+              ? Color(0xffF76B0A)
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(25),
         ),
         child: Text(
           title,
           style: TextStyle(
             color: isSelected
-                ? Colors.orange
+                ? Colors.white
                 : Colors.black87,
+            fontWeight: FontWeight.w500
           ),
         ),
       ),
-    );
-  }
-  /// ================= SIMPLE ITEM =================
-  Widget _simpleItem(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon),
-      title: collapsed ? null : Text(title),
-      onTap: () => onSelect(title),
     );
   }
 

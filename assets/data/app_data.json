@@ -1,0 +1,62 @@
+{
+  "status": true,
+  "message": "Local Json Data Loaded Successfully",
+  "theme_settings": [
+    {
+      "app_styling": {
+        "font_family": [
+          "Inter",
+          "Roboto",
+          "Poppins",
+          "Open Sans",
+          "Lato",
+          "Montserrat",
+          "Raleway"
+        ],
+        "bottom_bar_style": "Selection Style",
+        "style_items": [
+          "Underline",
+          "Filled",
+          "Outline"
+        ],
+        "icon_style": [
+          "With Labels",
+          "Icons Only"
+        ]
+      }
+    },
+    {
+      "product_block": {
+        "image_aspect_ratio": [
+          "Smart",
+          "Square",
+          "Portrait",
+          "Landscape"
+        ],
+        "image_position": [
+          "Crop",
+          "Fit"
+        ],
+        "selling_price_font_style": [
+          "Regular",
+          "Bold",
+          "Semibold"
+        ],
+        "discount_value_size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "title_text_behavior": [
+          "Clip",
+          "Wrap"
+        ],
+        "title_text_alignment": [
+          "Left",
+          "Center",
+          "Right"
+        ]
+      }
+    }
+  ]
+}

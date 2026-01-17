@@ -24,7 +24,7 @@ class DashboardLayout extends StatefulWidget {
 }
 
 class _DashboardLayoutState extends State<DashboardLayout>{
-  bool isCollapsed = true;
+  bool isCollapsed = false;
   String currentScreen = "Themes";
 
   @override
@@ -75,7 +75,6 @@ class _DashboardLayoutState extends State<DashboardLayout>{
               ),
             ),
           )
-
         ],
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -90,7 +89,6 @@ class _DashboardLayoutState extends State<DashboardLayout>{
       body: Row(
         children: [
           /// SIDEBAR
-
           Sidebar(
             collapsed: isCollapsed,
             selected: currentScreen,
@@ -102,9 +100,6 @@ class _DashboardLayoutState extends State<DashboardLayout>{
               LoginController().logout(context);
             },
           ),
-
-
-
           /// MAIN CONTENT
           Expanded(
             child: _getScreen(),
@@ -113,7 +108,6 @@ class _DashboardLayoutState extends State<DashboardLayout>{
       ),
     );
   }
-
   Widget _getScreen() {
     switch (currentScreen) {
       case "Themes":

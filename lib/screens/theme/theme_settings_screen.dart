@@ -1,8 +1,12 @@
 import 'package:builder/widgets/theme_settings_widgets/theme_settings_center_card/app_styling.dart';
+import 'package:builder/widgets/theme_settings_widgets/theme_settings_center_card/side_menu.dart';
+import 'package:builder/widgets/theme_settings_widgets/theme_settings_center_card/top_navigation.dart';
 import 'package:flutter/material.dart';
 
 import '../../utilites/enums/theme_settings.dart';
 import '../../widgets/theme_settings_widgets/theme_mobile_preview.dart';
+import '../../widgets/theme_settings_widgets/theme_settings_center_card/bottom_bar.dart';
+import '../../widgets/theme_settings_widgets/theme_settings_center_card/product_block.dart';
 import '../../widgets/theme_settings_widgets/theme_side_menu.dart';
 
 class ThemeSettingsScreen extends StatefulWidget {
@@ -52,13 +56,13 @@ class _ThemeSettingsScreenState extends State<ThemeSettingsScreen> {
       case ThemeSection.appStyling:
         return const AppStylingScreen();
       case ThemeSection.productBlock:
-        return const Text("Product Block Settings",style: TextStyle(fontSize: 25),);
+        return const  ProductBlockScreen();
       case ThemeSection.topNavigation:
-        return const Text("Top Navigation Settings",style: TextStyle(fontSize: 25),);
+        return const  TopNavigationScreen();
       case ThemeSection.sideMenu:
-        return const Text("Side Menu Settings",style: TextStyle(fontSize: 25),);
+        return const SideMenuScreen();
       case ThemeSection.bottomBar:
-        return const Text("Bottom Bar Settings",style: TextStyle(fontSize: 25),);
+        return const BottomBarScreen();
     }
   }
 }
